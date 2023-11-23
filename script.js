@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
           alert('Survey submitted successfully!');
           surveyForm.reset();
         } else {
-          const errorMessage = await response.text();
-          alert(`Error: ${errorMessage}`);
+          const errorData = await response.json(); // Parse response body as JSON
+          alert(`Error: ${errorData.message}`);
         }
       } catch (error) {
         console.error('Error submitting survey:', error);

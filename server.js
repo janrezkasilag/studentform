@@ -29,16 +29,16 @@ app.use(express.static('public'));
 
 // Route for handling form submissions
 app.post('/submit-survey', async (req, res) => {
-  try {
-    const surveyData = req.body;
-    const survey = new Survey(surveyData);
-    await survey.save();
-    res.status(201).json({ message: 'Survey submitted successfully!' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+    try {
+      const surveyData = req.body;
+      const survey = new Survey(surveyData);
+      await survey.save();
+      res.status(201).json({ message: 'Survey submitted successfully!' });
+    } catch (error) {
+      console.error('Error saving survey:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  });
 
 // Start the server
 app.listen(PORT, () => {
