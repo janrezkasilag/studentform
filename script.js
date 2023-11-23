@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   
       try {
-        const response = await fetch('/submit-survey', {
+        const response = await fetch('/.netlify/functions/submit-survey', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -24,12 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
           surveyForm.reset();
         } else {
           const errorData = await response.json(); // Parse response body as JSON
-          console.error('Error:', errorData.error); // Log detailed error on the client side
-          console.error('Stack Trace:', errorData.stack); // Log the full error stack trace
+          console.error('Client-side Error:', errorData.error); // Log detailed error on the client side
           alert(`Error: ${errorData.message}`);
         }
       } catch (error) {
-        console.error('Error submitting survey:', error);
+        console.error('Client-side Error:', error);
         alert('An error occurred while submitting the survey. Please try again.');
       }
     });
