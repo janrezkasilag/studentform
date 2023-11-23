@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           const errorData = await response.json(); // Parse response body as JSON
           console.error('Error:', errorData.error); // Log detailed error on the client side
+          console.error('Stack Trace:', errorData.stack); // Log the full error stack trace
           alert(`Error: ${errorData.message}`);
         }
       } catch (error) {
