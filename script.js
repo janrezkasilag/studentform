@@ -1,36 +1,26 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const surveyForm = document.getElementById('surveyForm');
-  
-    surveyForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-  
-      const formData = new FormData(surveyForm);
-      const surveyData = {};
-      formData.forEach((value, key) => {
-        surveyData[key] = value;
-      });
-  
-      try {
-        const response = await fetch('/.netlify/functions/submit-survey', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(surveyData),
+document.getElementById('surveyForm').addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        feedback: document.getElementById('feedback').value,
+    };
+
+    try {
+        const response = await fetch('/.netlify/functions/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
         });
-  
-        if (response.ok) {
-          alert('Survey submitted successfully!');
-          surveyForm.reset();
-        } else {
-          const errorData = await response.json(); // Parse response body as JSON
-          console.error('Client-side Error:', errorData.error); // Log detailed error on the client side
-          alert(`Error: ${errorData.message}`);
-        }
-      } catch (error) {
-        console.error('Client-side Error:', error);
-        alert('An error occurred while submitting the survey. Please try again.');
-      }
-    });
-  });
-  
+
+        const result = await response.json();
+        alert(result.message);
+        // Optionally, you can redirect or perform other actions after successful submission.
+    } catch (error) {
+        console.error('Error submitting survey:', error);
+        alert('Error submitting survey. Please try again later.');
+    }
+});
