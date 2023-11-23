@@ -1,6 +1,4 @@
-document.getElementById('surveyForm').addEventListener('submit', async function (event) {
-    event.preventDefault();
-
+async function submitForm() {
     const formData = {
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
@@ -23,4 +21,4 @@ document.getElementById('surveyForm').addEventListener('submit', async function 
         console.error('Error submitting survey:', error);
         alert('Error submitting survey. Please try again later.');
     }
-});
+}
