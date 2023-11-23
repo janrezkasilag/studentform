@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
           surveyForm.reset();
         } else {
           const errorData = await response.json(); // Parse response body as JSON
+          console.error('Error:', errorData.error); // Log detailed error on the client side
           alert(`Error: ${errorData.message}`);
         }
       } catch (error) {
